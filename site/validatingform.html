@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <form name="myForm" novalidate>
+            <!-- this field is required -->
+            First Name (required validation):<br>
+            <input name="fname" type="text" ng-model="user.firstName" required><br>
+            <!-- person cant be a minor! -->
+            Age:<br>
+            <input name="age" type="number" ng-model="user.age">
+            <br><br>
+            
+            <!-- fancy custom validation... see function below! -->
+            Fruit Preference:<br>
+            <input type="text" name="fruitName" ng-model="user.fruitName" blacklist="coconuts,bananas,pears" required/>
+            <span ng-show="myForm.fruitName.$error.blacklist">
+               The phrase "{{myForm.fruitName.$viewValue}}" is blacklisted</span>
+            <span ng-show="myForm.fruitName.$error.required">Fruit is required!</span>
+            <br><br>
+            
+            <!-- this button is disabled if the form is not valid! -->
+            <input type="submit" ng-disabled=" myForm.$invalid">
+        </form>
+        <p>form = {{user}}</p>
+        <p>FORM valid state is:<b>{{myForm.$valid}}</b></p>
+        <p>fname valid state is:<b>{{myForm.fname.$valid}}</b></p>
+        <p>age valid state is:<b>{{myForm.age.$valid}}</b></p>
+        <h1></h1>      
+        </div>
+    <script>
+      var app = angular.module('myApp', []);
+      app.controller('formCtrl', function($scope) {});
+    </script>      
+
+    <!-- custom validation from: https://stackoverflow.com/questions/12581439/how-to-add-custom-validation-to-an-angularjs-form -->
+    <script>
+        app.directive('blacklist', function (){ 
+        return {
+            require: 'ngModel',
+            link: function(scope, elem, attr, ngModel) {
+                var blacklist = attr.blacklist.split(',');
+
+                //For DOM -> model validation
+                ngModel.$parsers.unshift(function(value) {
+                    var valid = blacklist.indexOf(value) === -1;
+                    ngModel.$setValidity('blacklist', valid);
+                    return valid ? value : undefined;
+                });
+
+                //For model -> DOM validation
+                ngModel.$formatters.unshift(function(value) {
+                    ngModel.$setValidity('blacklist', blacklist.indexOf(value) === -1);
+                    return value;
+                });
+            }
+        };
+        });      
+    </script>
+</body>
+</html>

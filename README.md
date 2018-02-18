@@ -4,7 +4,7 @@
 | Example                                                                  | Link             |
 | ------------------------------------------------------------------------ | ---------------- |
 | Basic form (e.g. Id, Name, Gender) (no submit yet) |[simpleform](site/simpleform.html) |
-| Basic form lookup by Id and update | |
+| Basic form lookup by Id and update | [validatingform](site/validatingform.html)|
 | Basic validation on form (e.g. age is numeric) | |
 | Checkbox to expose a subtable e.g. habits | |
 | Dynamic number of rows for subtable | |
