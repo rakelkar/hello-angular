@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="">
+  <form>
+    <p>First Name: <input type="text" ng-model="firstname"></p>
+    <p>Show Heading?: <input type="checkbox" ng-model="showHeading"></p>
+    <p>
+        Pick a topic (radio):
+        <input type="radio" ng-model="myVar" value="dogs">Dogs
+        <input type="radio" ng-model="myVar" value="tuts">Tutorials
+        <input type="radio" ng-model="myVar" value="cars">Cars
+    </p>
+    <p>
+        Select a topic2 selectbox:
+        <select ng-model="myVar2">
+            <option value="">
+            <option value="dogs">Dogs
+            <option value="tuts">Tutorials
+            <option value="cars">Cars
+        </select>        
+    </p>
+  </form>
+  <h1>You entered: {{firstname}} is a {{myVar}} and {{myVar2}}</h1>
+  <h1 ng-show="showHeading"></h1>
+</div>
+
+<p>Change the name inside the input field, and you will see the name in the header changes accordingly.</p>
+
+</body>
+</html>
